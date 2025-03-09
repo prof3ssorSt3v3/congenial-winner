@@ -1,0 +1,41 @@
+.card {
+  max-width: 30ch;
+  background-color: var(--surface);
+  color: var(--txt);
+  border-radius: var(--radius);
+  margin-block: 1rem;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 300;
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+.subtitle {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+.content {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-align: justify;
+}
+.actions {
+  margin: 1rem auto;
+
+  & button {
+    font-size: 1rem;
+    border: none;
+    border-radius: calc(var(--radius) / 2);
+    background-color: var(--buttonSurface);
+  }
+}
