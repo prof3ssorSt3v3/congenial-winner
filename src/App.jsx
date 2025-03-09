@@ -11,6 +11,8 @@ const info = {
   btn: 'Click',
 };
 
+// https://random-data-api.com/api/v2/beers?size=4
+
 function App() {
   const action = useCallback(() => {
     console.warn('clicked on a button');
