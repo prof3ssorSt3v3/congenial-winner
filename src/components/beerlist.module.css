@@ -1,0 +1,10 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.list {
+  display: block;
+  list-style-type: none;
+  margin-block-end: 1rem;
+}

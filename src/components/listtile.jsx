@@ -3,15 +3,16 @@ import styles from './listtile.module.css';
 //rafce
 
 const ListTile = ({ info, action }) => {
-  const { title, subtitle, content, btn } = info;
+  //info and action are destructured from props
+  const { brand, name, style, hop } = info;
 
   return (
     <div className={styles.tile}>
-      <h2 className={styles.title}>{title}</h2>
-      <h3 className={styles.subtitle}>{subtitle}</h3>
-      <p className={styles.content}>{content}</p>
+      <h2 className={styles.title}>{brand}</h2>
+      <h3 className={styles.subtitle}>{name}</h3>
+      <p className={styles.content}>{style}</p>
       <div className={styles.actions}>
-        <button onClick={action}>{btn}</button>
+        <button onClick={action}>{hop}</button>
       </div>
     </div>
   );
