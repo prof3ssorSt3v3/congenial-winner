@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react';
 import './App.css';
 import BeerList from './components/beerlist';
 import Loader from './components/loader';
+import Header from './components/header';
 
 // https://random-data-api.com/api/v2/beers?size=4
 
@@ -13,9 +14,11 @@ function App() {
   const [errMessage, setErrMessage] = useState(null);
   const [numBeers, setNumBeers] = useState(5);
   const [listMode, setListMode] = useState('list');
+  const [keyword, setKeyword] = useState(() => getLocal());
 
   useEffect(() => {
     getData();
+    // setKeyword(() => getLocal());
     //other func
     //other func
   }, [numBeers]);
@@ -38,6 +41,29 @@ function App() {
     }
   }
 
+  function msg(message) {
+    //pure function. Same input => same output
+    //no side effects
+    //does not rely on any variable/object outside of the function
+    return message.toUpperCase();
+  }
+
+  function processForm(formData) {
+    console.log('thanks for submitting');
+    console.log([...formData.entries()]);
+    console.log(formData.get('search'));
+
+    saveLocal(formData.get('search'));
+  }
+
+  function saveLocal(keyword) {
+    localStorage.setItem('SearchThingyMaBob', keyword);
+  }
+  function getLocal() {
+    return localStorage.getItem('SearchThingyMaBob') ?? '';
+    //if localStorage returns null, make this an empty string
+  }
+
   const action = useCallback(() => {
     //save a function to prevent it being recreated each time App() is run
     //this will protect components using this function from being unnecessarily rerendered too
@@ -58,21 +84,24 @@ function App() {
   }
 
   return (
-    <div className="main">
-      {isLoading && <Loader />}
+    <>
+      <Header action={processForm} strKeyword={keyword} />
+      <div className="main">
+        {isLoading && <Loader />}
 
-      {errMessage && <h2>{errMessage}</h2>}
+        {errMessage && <h2>{errMessage}</h2>}
 
-      {beers && beers.length == 0 && <p>No beers found</p>}
+        {beers && beers.length == 0 && <p>No beers found</p>}
 
-      {beers && beers.length > 0 && (
-        <>
-          <button onClick={toggle}>Toogle Display</button>
-          <button onClick={numRandomNumberOfBeers}>Get New Beer</button>
-          <BeerList beers={beers} type={listMode} action={action} />
-        </>
-      )}
-    </div>
+        {beers && beers.length > 0 && (
+          <>
+            <button onClick={toggle}>Toogle Display</button>
+            <button onClick={numRandomNumberOfBeers}>Get New Beer</button>
+            <BeerList beers={beers} type={listMode} action={action} />
+          </>
+        )}
+      </div>
+    </>
   );
 }
 //changing BeerList.beers or BeerList.type will rerender <BeerList/>
